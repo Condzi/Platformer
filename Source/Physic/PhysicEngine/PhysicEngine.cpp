@@ -108,6 +108,21 @@ void PhysicEngine::updateCollisions()
 	}
 }
 
+void PhysicEngine::updateRigidbodies(const float & deltaTime)
+{
+	//I'm not sure about this...
+
+	for each (Rigidbody * r in m_rigidbodies)
+	{
+		r->positionX += r->positionX * r->velocityX / r->dragX * deltaTime;
+		if (r->applyGravity)
+		{
+			r->velocityY += r->gravity * r->mass;
+		}
+		r->positionY += r->positionY * r->velocityY / r->dragY * deltaTime;
+	}
+}
+
 void PhysicEngine::deleteCollidersAndRigidbodies()
 {
 	for (size_t i = 0; i < m_colliders.size(); ++i)
@@ -172,6 +187,42 @@ bool PhysicEngine::AddRigidbody(Rigidbody * rigidbody)
 	m_rigidbodies.push_back(rigidbody);
 	rigidbody->m_physicEngineID = ++m_currentIDcounter;
 	return true;
+}
+
+bool PhysicEngine::DelCollider(const size_t & id)
+{
+	if (id > m_currentIDcounter)
+		return false;
+
+	for each (BoxCollider * var in m_colliders)
+	{
+		if (var->m_physicEngineID == id)
+		{
+			delete var;
+			var = nullptr;
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool PhysicEngine::DelRigidbody(const size_t & id)
+{
+	if (id > m_currentIDcounter)
+		return false;
+
+	for each (Rigidbody * var in m_rigidbodies)
+	{
+		if (var->m_physicEngineID == id)
+		{
+			delete var;
+			var = nullptr;
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void PhysicEngine::DeleteAll()

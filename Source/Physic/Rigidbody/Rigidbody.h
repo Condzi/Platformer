@@ -19,7 +19,6 @@ public:
 	unsigned short mass;
 	bool applyGravity;
 
-	void Update(const float & deltaTime);
 	///	Returns ID used by PhysicEngine
 	size_t GetPhysicEngineID();
 

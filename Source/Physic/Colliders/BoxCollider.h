@@ -28,7 +28,7 @@ public:
 	bool GetIsColliding();
 	///	Returns ID used by PhysicEngine
 	size_t GetPhysicEngineID();
-
+	///	Sets IsTriggered variable
 	void SetIsTriggered(const bool & newStatement);
 
 	bool operator==(BoxCollider & a);

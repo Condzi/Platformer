@@ -23,6 +23,8 @@ private:
 	bool checkSimplyCollision(const BoxCollider & a, const BoxCollider & b);
 	/// Updates collisions for all BoxColliders
 	void updateCollisions();
+	///	Updates Rigidbody movement for all Rigidobodies
+	void updateRigidbodies(const float & deltaTime);
 	/// Deletes Colliders and Rigidbodies
 	void deleteCollidersAndRigidbodies();
 
@@ -34,15 +36,21 @@ public:
 	size_t GetCollidersCount();
 	/// Returns Rigidbodies count
 	size_t GetRigidbodiesCount();
-	/// Return current ID
+	/// Returns current ID
 	size_t GetID();
 
+	/// Returns false if couldn't add Collider
 	bool AddCollider(BoxCollider * collider);
+	/// Returns false if couldn't add Rigidbody
 	bool AddRigidbody(Rigidbody * rigidbody);
+	/// Returns false if couldn't delete Collider
+	bool DelCollider(const size_t & id);
+	/// Returns false if couldn't delete Rigidbody
+	bool DelRigidbody(const size_t & id);
 	///	Deletes everything and resets counter \
 		Good for cleanup before next-scene objects are adding Colliders and Rigidbodies
 	void DeleteAll();
-
+	///	Updates engine, called once per loop circuit
 	void Update(const float & deltaTime);
 
 private:
