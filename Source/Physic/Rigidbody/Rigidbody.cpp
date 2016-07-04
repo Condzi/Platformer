@@ -1,5 +1,4 @@
-#include "Rigidbody.h"
-
+#include "Rigidbody.hpp"
 
 
 Rigidbody::Rigidbody()

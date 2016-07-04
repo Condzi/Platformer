@@ -1,9 +1,24 @@
-#include "BoxCollider.h"
+#include "BoxCollider.hpp"
 
 
-void BoxCollider::modifyIsTriggered(const bool & newStatement)
+bool BoxCollider::addCollisionInfo(const CollisionInfo & collisionInfo)
 {
-	const_cast<bool&>(this->isTriggered) = newStatement;
+	CollisionInfo * temp = nullptr;
+	IsCollidingWith(collisionInfo.id, temp);
+
+	if (*temp == collisionInfo)
+		return false;
+	if (temp->id == collisionInfo.id)
+		temp->side = collisionInfo.side;
+		return true;
+	if (collisionInfo.id == m_physicEngineID)
+		return false;
+	if (m_collisionInfo.size() + 1 > m_collisionInfo.max_size())
+		return false;
+
+	m_collisionInfo.push_back(new CollisionInfo(collisionInfo));
+
+	return true;
 }
 
 BoxCollider::BoxCollider(int32_t x, int32_t y, int32_t sizeX, int32_t sizeY, bool isTriggered)
@@ -12,21 +27,57 @@ BoxCollider::BoxCollider(int32_t x, int32_t y, int32_t sizeX, int32_t sizeY, boo
 	this->y = y;
 	this->sizeX = sizeX;
 	this->sizeY = sizeY;
-	modifyIsTriggered(isTriggered);
+	SetIsTriggered(isTriggered);
 }
+
 
 BoxCollider::~BoxCollider()
 {
+	for (size_t i = 0; i < m_collisionInfo.size(); ++i)
+		if (m_collisionInfo[i] != nullptr)
+			delete m_collisionInfo[i];
 }
 
-CollisionSide BoxCollider::GetCollisionSide()
+
+std::vector<CollisionInfo> BoxCollider::GetCollisionInfo()
 {
-	return m_collisionSide;
+	std::vector<CollisionInfo> temp;
+	temp.resize(m_collisionInfo.size());
+
+	for (size_t i = 0; i < temp.size(); ++i)
+	{
+		temp[i] = *m_collisionInfo[i];
+	}
+
+	return temp;
 }
 
 bool BoxCollider::GetIsColliding()
 {
-	return (m_collisionSide != CollisionSide::none) ? true : false;
+	for (size_t i = 0; i < m_collisionInfo.size(); ++i)
+	{
+		if (m_collisionInfo[i] != nullptr &&
+			m_collisionInfo[i]->side != none)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool BoxCollider::IsCollidingWith(const size_t & id, CollisionInfo * collInfo)
+{
+	for (size_t i = 0; i < m_collisionInfo.size(); ++i)
+	{
+		if (m_collisionInfo[i] != nullptr && m_collisionInfo[i]->id == id)
+		{
+			collInfo = m_collisionInfo[i];
+			return true;
+		}
+	}
+
+	return false;
 }
 
 size_t BoxCollider::GetPhysicEngineID()
@@ -36,7 +87,7 @@ size_t BoxCollider::GetPhysicEngineID()
 
 void BoxCollider::SetIsTriggered(const bool & newStatement)
 {
-	modifyIsTriggered(newStatement);
+	const_cast<bool&>(this->isTriggered) = newStatement;
 }
 
 bool BoxCollider::operator==(BoxCollider & a)

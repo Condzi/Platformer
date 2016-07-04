@@ -1,4 +1,4 @@
-#include "PhysicEngine.h"
+#include "PhysicEngine.hpp"
 
 
 void PhysicEngine::calculateCollisionPoints(const BoxCollider & b, sf::Vector2f points[8])
@@ -92,18 +92,19 @@ bool PhysicEngine::checkSimplyCollision(const BoxCollider & a, const BoxCollider
 
 void PhysicEngine::updateCollisions()
 {
-	for (size_t i = 0; i < m_colliders.size(); ++i)
+	//I think it's the most inefficient way I can imagine, but hey!
+	//It works!
+	for each(BoxCollider * var1 in m_colliders)
 	{
-		for (size_t j = i + 1; j < m_colliders.size(); ++j)
+		for each(BoxCollider * var2 in m_colliders)
 		{
-			if (m_colliders[i] == nullptr || m_colliders[j] == nullptr)
+			if (var1 == nullptr || var2 == nullptr)
 				continue;
-			if (checkCollisionSide(*m_colliders[i], *m_colliders[j]))
-				m_colliders[i]->m_collisionSide = CollisionSide::Simply;
-			else
-				m_colliders[i]->m_collisionSide = CollisionSide::none;
-
-			m_colliders[j]->m_collisionSide = m_colliders[i]->m_collisionSide;
+			if (checkSimplyCollision(*var1, *var2))
+			{
+				var1->addCollisionInfo(CollisionInfo(Simple, var2->m_physicEngineID));
+				var2->addCollisionInfo(CollisionInfo(Simple, var1->m_physicEngineID));
+			}
 		}
 	}
 }
@@ -138,10 +139,12 @@ void PhysicEngine::deleteCollidersAndRigidbodies()
 	}
 }
 
+
 PhysicEngine::PhysicEngine()
 {
 	m_currentIDcounter = 0;
 }
+
 
 PhysicEngine::~PhysicEngine()
 {
@@ -168,7 +171,7 @@ bool PhysicEngine::AddCollider(BoxCollider * collider)
 	if (collider == nullptr)
 		return false;
 
-	if (m_colliders.size() + 1 > std::numeric_limits<size_t>::max())
+	if (m_colliders.size() + 1 > m_colliders.max_size())
 		return false;
 
 	m_colliders.push_back(collider);
@@ -181,7 +184,7 @@ bool PhysicEngine::AddRigidbody(Rigidbody * rigidbody)
 	if (rigidbody == nullptr)
 		return false;
 
-	if (m_rigidbodies.size() + 1 > std::numeric_limits<size_t>::max())
+	if (m_rigidbodies.size() + 1 > m_rigidbodies.max_size())
 		return false;
 
 	m_rigidbodies.push_back(rigidbody);
@@ -253,7 +256,8 @@ void PhysicEngine::Update(const float & deltaTime)
 			m_rigidbodies[i] = nullptr;
 			continue;
 		}
-
-		m_rigidbodies[i]->Update(deltaTime);
 	}
+
+	updateCollisions();
+	updateRigidbodies(deltaTime);
 }

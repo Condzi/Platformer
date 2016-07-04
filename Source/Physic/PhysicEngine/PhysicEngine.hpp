@@ -1,9 +1,9 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 
-#include "..\Colliders\BoxCollider.h"
-#include "..\Rigidbody\Rigidbody.h"
-#include "..\CollisionSides.h"
+#include "..\Colliders\BoxCollider.hpp"
+#include "..\Rigidbody\Rigidbody.hpp"
+#include "..\CollisionSides.hpp"
 
 
 class PhysicEngine
@@ -50,6 +50,7 @@ public:
 	///	Deletes everything and resets counter \
 		Good for cleanup before next-scene objects are adding Colliders and Rigidbodies
 	void DeleteAll();
+
 	///	Updates engine, called once per loop circuit
 	void Update(const float & deltaTime);
 

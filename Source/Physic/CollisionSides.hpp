@@ -11,6 +11,6 @@ enum CollisionSide
 	Bottom,			//5
 	Bottom_Left,	//6
 	Left,			//7
-	Simply,			//8
+	Simple,			//8
 	none			//9
 };

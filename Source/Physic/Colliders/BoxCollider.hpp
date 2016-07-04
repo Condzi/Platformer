@@ -1,7 +1,8 @@
 #pragma once
 #include <cinttypes>
+#include <vector>
 
-#include "..\CollisionSides.h"
+#include "..\CollisionInfo.hpp"
 
 
 class BoxCollider
@@ -9,7 +10,8 @@ class BoxCollider
 	friend class PhysicEngine;
 
 private:
-	void modifyIsTriggered(const bool & newStatement);
+	/// Helping methof for PhysicEngine
+	bool addCollisionInfo(const CollisionInfo & collisionInfo);
 
 public:
 	BoxCollider(int32_t x = 0, int32_t y = 0, int32_t sizeX = 0, int32_t sizeY = 0, bool isTriggered = false);
@@ -23,9 +25,14 @@ public:
 		Only using SetIsTriggered method
 	const bool isTriggered = false;
 	///	Returns collision side
-	CollisionSide GetCollisionSide();
-	/// Returns true if colliding
+	/// If no collision returns:\
+		CollisionSide::none, \
+		id = 0
+	std::vector<CollisionInfo> GetCollisionInfo();
+	/// Returns true if colliding with anything
 	bool GetIsColliding();
+	/// Returns true if colliding with BoxCollider with specified id
+	bool IsCollidingWith(const size_t & id, CollisionInfo * collInfo = nullptr);
 	///	Returns ID used by PhysicEngine
 	size_t GetPhysicEngineID();
 	///	Sets IsTriggered variable
@@ -35,9 +42,9 @@ public:
 	bool operator!=(BoxCollider & a);
 
 private:
-	CollisionSide m_collisionSide;
-	bool m_wishDelete;
+	std::vector<CollisionInfo*> m_collisionInfo;
 	size_t m_physicEngineID;
+	bool m_wishDelete;
 
 };
 
