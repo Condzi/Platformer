@@ -131,13 +131,19 @@ void PhysicEngine::deleteCollidersAndRigidbodies()
 	for (BoxCollider * var : m_colliders)
 	{
 		if (var != nullptr)
+		{
 			delete var;
+			var = nullptr;
+		}
 	}
 
 	for (Rigidbody * var : m_rigidbodies)
 	{
 		if (var != nullptr)
+		{
 			delete var;
+			var = nullptr;
+		}
 	}
 }
 

@@ -17,6 +17,17 @@ struct CutValues
 		this->height = height;
 	}
 
-	bool operator==(const CutValues & a);
-	bool operator!=(const CutValues & a);
+	bool operator==(const CutValues & a)
+	{
+		return (x == a.x &&
+			y == a.y &&
+			width == a.width &&
+			height == a.height)
+			? true : false;
+	}
+
+	bool operator!=(const CutValues & a)
+	{
+		return (operator==(a)) ? false : true;
+	}
 };
