@@ -1,5 +1,5 @@
 # "Platformer"
-Simple 2d mage make in C++ and SFML. Top-Down mini RPG.
+Simple 2d made make in C++ and SFML. Top-Down mini RPG.
 # Project Status
 3. Animator is almose done, searching for bugs etc. (I don't test previous code so... that may be hard to debug)
 2. TextureManager is done, I add some referencion counter so texture will delete if no one is using it. To-Do are now Animations.
