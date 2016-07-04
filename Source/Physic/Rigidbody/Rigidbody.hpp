@@ -9,6 +9,14 @@ public:
 	Rigidbody();
 	~Rigidbody();
 
+	///	Returns ID used by PhysicEngine
+	size_t GetPhysicEngineID();
+
+private:
+	bool m_wishDelete;
+	size_t m_physicEngineID;
+
+public:
 	int positionX;
 	int positionY;
 	int velocityX;
@@ -19,13 +27,5 @@ public:
 	unsigned short mass;
 	bool applyGravity;
 
-	///	Returns ID used by PhysicEngine
-	size_t GetPhysicEngineID();
-
-private:
-	bool m_wishDelete;
-	size_t m_physicEngineID;
-
-public:
 };
 
