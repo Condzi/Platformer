@@ -20,6 +20,15 @@ void TextureManager::referenceCounterUpdate()
 	}
 }
 
+void TextureManager::deleteUnusedTextures()
+{
+	for (size_t i = 0; i < m_textures.size(); ++i)
+	{
+		if (m_textures[i] == nullptr)
+			m_textures.erase(m_textures.begin(), m_textures.begin() + i);
+	}
+}
+
 TextureManager::TextureManager()
 {
 	m_currentIDcounter = 0;
@@ -64,16 +73,13 @@ bool TextureManager::DelPath(const std::string & path)
 void TextureManager::ReloadTextures()
 {
 	// Checking if there is no empty path ("" or " ")
-	m_currentIDcounter = 0;
-
 	for (size_t i = 0; i < m_pathsToFiles.size(); ++i)
 	{
 		if (m_pathsToFiles[i] == "" || m_pathsToFiles[i] == " ")
 			m_pathsToFiles.erase(m_pathsToFiles.begin(), m_pathsToFiles.begin() + i);
 	}
 	
-	/*I have no idea what have i done zone*/
-	m_textures.resize(0);
+	deleteUnusedTextures();
 	m_textures.resize(m_pathsToFiles.size());
 
 	for (size_t i = 0; i < m_pathsToFiles.size(); ++i)

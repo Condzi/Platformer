@@ -6,6 +6,7 @@ class TextureManager
 private:
 	bool loadFromFile(TextureFixed & texture, const std::string & filePath);
 	void referenceCounterUpdate();
+	void deleteUnusedTextures();
 
 public:
 	TextureManager();
