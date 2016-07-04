@@ -33,9 +33,12 @@ BoxCollider::BoxCollider(int32_t x, int32_t y, int32_t sizeX, int32_t sizeY, boo
 
 BoxCollider::~BoxCollider()
 {
-	for (size_t i = 0; i < m_collisionInfo.size(); ++i)
-		if (m_collisionInfo[i] != nullptr)
-			delete m_collisionInfo[i];
+	for each (CollisionInfo * var in m_collisionInfo)
+		if (var != nullptr)
+		{
+			delete var;
+			var = nullptr;
+		}
 }
 
 

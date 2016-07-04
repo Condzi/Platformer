@@ -56,9 +56,9 @@ CollisionSide PhysicEngine::checkCollisionSide(const BoxCollider & a, const BoxC
 	
 	sf::Vector2f collisionPoints[8];
 	sf::Vector2f middleOfA = sf::Vector2f(a.x + a.sizeX / 2, a.y + a.sizeY / 2);
+	sf::Vector2u smallestDistance(0,0);
 	float distances[8];
 	//distace, id
-	sf::Vector2u smallestDistance(0,0);
 	
 	calculateCollisionPoints(b, collisionPoints);
 	
@@ -94,11 +94,13 @@ void PhysicEngine::updateCollisions()
 {
 	//I think it's the most inefficient way I can imagine, but hey!
 	//It works!
-	for each(BoxCollider * var1 in m_colliders)
+	for (BoxCollider * var1 : m_colliders)
 	{
-		for each(BoxCollider * var2 in m_colliders)
+		for (BoxCollider * var2 : m_colliders)
 		{
 			if (var1 == nullptr || var2 == nullptr)
+				continue;
+			if (var1 == var2)
 				continue;
 			if (checkSimplyCollision(*var1, *var2))
 			{
@@ -113,7 +115,7 @@ void PhysicEngine::updateRigidbodies(const float & deltaTime)
 {
 	//I'm not sure about this...
 
-	for each (Rigidbody * r in m_rigidbodies)
+	for (Rigidbody * r : m_rigidbodies)
 	{
 		r->positionX += r->positionX * r->velocityX / r->dragX * deltaTime;
 		if (r->applyGravity)
@@ -126,16 +128,16 @@ void PhysicEngine::updateRigidbodies(const float & deltaTime)
 
 void PhysicEngine::deleteCollidersAndRigidbodies()
 {
-	for (size_t i = 0; i < m_colliders.size(); ++i)
+	for (BoxCollider * var : m_colliders)
 	{
-		if (m_colliders[i] != nullptr)
-			delete m_colliders[i];
+		if (var != nullptr)
+			delete var;
 	}
 
-	for (size_t i = 0; i < m_colliders.size(); ++i)
+	for (Rigidbody * var : m_rigidbodies)
 	{
-		if (m_rigidbodies[i] != nullptr)
-			delete m_rigidbodies[i];
+		if (var != nullptr)
+			delete var;
 	}
 }
 
@@ -197,7 +199,7 @@ bool PhysicEngine::DelCollider(const size_t & id)
 	if (id > m_currentIDcounter)
 		return false;
 
-	for each (BoxCollider * var in m_colliders)
+	for (BoxCollider * var : m_colliders)
 	{
 		if (var->m_physicEngineID == id)
 		{
@@ -215,7 +217,7 @@ bool PhysicEngine::DelRigidbody(const size_t & id)
 	if (id > m_currentIDcounter)
 		return false;
 
-	for each (Rigidbody * var in m_rigidbodies)
+	for (Rigidbody * var : m_rigidbodies)
 	{
 		if (var->m_physicEngineID == id)
 		{
@@ -239,22 +241,21 @@ void PhysicEngine::DeleteAll()
 
 void PhysicEngine::Update(const float & deltaTime)
 {
-	for (size_t i = 0; i < m_colliders.size(); ++i)
+	for (BoxCollider * var : m_colliders)
 	{
-		if (m_colliders[i]->m_wishDelete)
+		if (var->m_wishDelete)
 		{
-			delete m_colliders[i];
-			m_colliders[i] = nullptr;
+			delete var;
+			var = nullptr;
 		}
 	}
 
-	for (size_t i = 0; i < m_rigidbodies.size(); ++i)
+	for (Rigidbody * var : m_rigidbodies)
 	{
-		if (m_rigidbodies[i]->m_wishDelete)
+		if (var->m_wishDelete)
 		{
-			delete m_rigidbodies[i];
-			m_rigidbodies[i] = nullptr;
-			continue;
+			delete var;
+			var = nullptr;
 		}
 	}
 
