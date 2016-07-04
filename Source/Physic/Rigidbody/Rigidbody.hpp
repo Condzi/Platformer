@@ -25,5 +25,7 @@ public:
 private:
 	bool m_wishDelete;
 	size_t m_physicEngineID;
+
+public:
 };
 

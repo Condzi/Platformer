@@ -17,15 +17,8 @@ public:
 	BoxCollider(int32_t x = 0, int32_t y = 0, int32_t sizeX = 0, int32_t sizeY = 0, bool isTriggered = false);
 	~BoxCollider();
 
-	int32_t x;
-	int32_t y;
-	int32_t sizeX;
-	int32_t sizeY;
-	/// It's really important field so can be changed \
-		Only using SetIsTriggered method
-	const bool isTriggered = false;
-	///	Returns collision side
-	/// If no collision returns:\
+	///	Returns collision side \
+		If no collision returns:\
 		CollisionSide::none, \
 		id = 0
 	std::vector<CollisionInfo> GetCollisionInfo();
@@ -45,6 +38,15 @@ private:
 	std::vector<CollisionInfo*> m_collisionInfo;
 	size_t m_physicEngineID;
 	bool m_wishDelete;
+
+public:
+	int32_t x;
+	int32_t y;
+	int32_t sizeX;
+	int32_t sizeY;
+	/// It's really important field so can be changed \
+		Only using SetIsTriggered method
+	const bool isTriggered = false;
 
 };
 
