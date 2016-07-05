@@ -10,6 +10,7 @@ void Animator::draw(sf::RenderTarget & target, sf::RenderStates states) const
 Animator::Animator()
 {
 	m_clock = nullptr;
+	m_repeat = false;
 }
 
 
@@ -62,11 +63,17 @@ bool Animator::Update()
 
 void Animator::Stop()
 {
+	if (m_repeat)
+	{
+		m_clock->restart();
+		m_currentFramePlayingID = 0;
+		return;
+	}
+	
 	delete m_clock;
 	m_clock = nullptr;
 
 	m_currentFramePlayingID = 0;
-
 	m_playing = false;
 }
 
@@ -125,6 +132,11 @@ float Animator::GetAnimationLength()
 	return final;
 }
 
+void Animator::SetRepeat(const bool & newStatement)
+{
+	m_repeat = newStatement;
+}
+
 uint8_t Animator::GetCurrentFramePlayingID()
 {
 	return m_currentFramePlayingID;
@@ -133,4 +145,9 @@ uint8_t Animator::GetCurrentFramePlayingID()
 bool Animator::IsPlaying()
 {
 	return m_playing;
+}
+
+bool Animator::IsReapeated()
+{
+	return m_repeat;
 }

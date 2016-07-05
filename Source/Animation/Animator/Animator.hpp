@@ -24,10 +24,12 @@ public:
 	Frame GetCurrentFrame();
 	///	Returns animation length in seconds
 	float GetAnimationLength();
+	void SetRepeat(const bool & newStatement);
 
 	uint8_t GetCurrentFramePlayingID();
 
 	bool IsPlaying();
+	bool IsReapeated();
 
 private:
 	std::vector<Frame> m_frames;
@@ -36,5 +38,6 @@ private:
 		m_currentFramePlaying has nothing to m_lastFrameID (currentFramePlaying it's counter for vector)
 	uint8_t m_currentFramePlayingID;
 	bool m_playing;
+	bool m_repeat;
 };
 
