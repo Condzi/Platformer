@@ -15,7 +15,7 @@ public:
 	Frame(TextureFixed * texture = nullptr, const CutValues & cutValues = CutValues(), float duration = 0.2f);
 	~Frame();
 	
-	sf::Sprite m_frameSprite;
+	sf::Sprite frameSprite;
 	///	Frame display time in seconds
 	float duration;
 

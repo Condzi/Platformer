@@ -3,7 +3,7 @@
 
 void Frame::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(m_frameSprite);
+	target.draw(frameSprite);
 }
 
 Frame::Frame(TextureFixed * texture, const CutValues & cutValues, float duration)
@@ -25,8 +25,8 @@ bool Frame::SetTexture(TextureFixed * texture, const CutValues & cutValues)
 		texture == m_frameTexture)
 		return false;
 
-	m_frameSprite.setTexture(*texture);
-	m_frameSprite.setTextureRect(sf::IntRect(cutValues.x, cutValues.y, cutValues.width, cutValues.height));
+	frameSprite.setTexture(*texture);
+	frameSprite.setTextureRect(sf::IntRect(cutValues.x, cutValues.y, cutValues.width, cutValues.height));
 	
 	return true;
 }

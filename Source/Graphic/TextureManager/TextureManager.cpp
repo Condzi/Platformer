@@ -8,7 +8,7 @@ bool TextureManager::loadFromFile(TextureFixed & texture, const std::string & fi
 
 void TextureManager::referenceCounterUpdate()
 {
-	for (size_t i = 0; i< m_textures.size(); ++i)
+	for (size_t i = 0; i < m_textures.size(); ++i)
 	{
 		m_textures[i]->updateReference();
 		if (m_textures[i]->m_wishDelete)
