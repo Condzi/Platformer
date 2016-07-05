@@ -12,7 +12,6 @@ public:
 	Animator();
 	~Animator();
 
-	///	Starts animation with speed (0-2)[default 1]
 	bool Start();
 	bool Update();
 	void Stop();
