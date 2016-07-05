@@ -9,7 +9,7 @@ bool BoxCollider::addCollisionInfo(const CollisionInfo & collisionInfo)
 	if (*temp == collisionInfo)
 		return false;
 	if (temp->id == collisionInfo.id)
-		temp->side = collisionInfo.side;
+		temp->side == collisionInfo.side;
 		return true;
 	if (collisionInfo.id == m_physicEngineID)
 		return false;

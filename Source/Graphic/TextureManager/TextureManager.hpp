@@ -4,7 +4,7 @@
 class TextureManager
 {
 private:
-	bool loadFromFile(TextureFixed & texture, const std::string & filePath);
+	bool loadFromFile(TextureFixed * texture, const std::string & filePath);
 	void referenceCounterUpdate();
 	///Note: don't use it to delete textures that will be used \
 		used unly in ReloadTextures()
@@ -24,7 +24,7 @@ public:
 	const TextureFixed * GetTexture(const std::string & tag);
 	///	Call it in destructor of class that use reference of texture \
 		(I think that only Sprite specialized class should use it)
-	void GiveBackTexture(TextureFixed * texture);
+	void GiveBackTexture(const TextureFixed * texture);
 
 	void Update();
 

@@ -24,7 +24,7 @@ public:
 	int gravity;
 	int dragX;
 	int dragY;
-	unsigned short mass;
+	uint16_t mass;
 	bool applyGravity;
 
 };

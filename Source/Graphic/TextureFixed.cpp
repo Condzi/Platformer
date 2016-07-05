@@ -6,6 +6,7 @@ TextureFixed::TextureFixed(std::string tag)
 	m_textureManagerID = 0;
 	m_referenceCounter = 0;
 	this->tag = tag;
+	m_wishDelete = false;
 }
 
 

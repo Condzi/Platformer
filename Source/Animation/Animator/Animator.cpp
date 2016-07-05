@@ -3,7 +3,8 @@
 
 void Animator::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(m_frames[m_currentFramePlayingID], states);
+	if(m_playing)
+		target.draw(m_frames[m_currentFramePlayingID], states);
 }
 
 Animator::Animator()
@@ -37,12 +38,6 @@ bool Animator::Update()
 {
 	if (!m_playing)
 		return false;
-		//This may cause the last frame didn't show
-	if (m_currentFramePlayingID >= m_frames.size() - 1)
-	{
-		Stop();
-		return true;
-	}
 
 	float eleapsedFramesTime = 0.f;
 		
@@ -54,6 +49,12 @@ bool Animator::Update()
 	if (m_clock->getElapsedTime().asSeconds() > eleapsedFramesTime + m_frames[m_currentFramePlayingID].duration)
 	{
 		m_currentFramePlayingID++;
+	}
+	
+	if (m_currentFramePlayingID >= m_frames.size())
+	{
+		Stop();
+		return true;
 	}
 
 	return true;
