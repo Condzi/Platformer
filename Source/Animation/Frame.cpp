@@ -6,7 +6,7 @@ void Frame::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(frameSprite);
 }
 
-Frame::Frame(TextureFixed * texture, const CutValues & cutValues, float duration)
+Frame::Frame(const TextureFixed * texture, const CutValues & cutValues, float duration)
 {
 	SetTexture(texture, cutValues);
 	this->duration = duration;
@@ -16,10 +16,10 @@ Frame::Frame(TextureFixed * texture, const CutValues & cutValues, float duration
 Frame::~Frame()
 {
 	if (m_textureManagerPointer != nullptr)
-		m_textureManagerPointer->GiveBackTexture(m_frameTexture);
+		const_cast<TextureManager*>(m_textureManagerPointer)->GiveBackTexture(m_frameTexture);
 }
 
-bool Frame::SetTexture(TextureFixed * texture, const CutValues & cutValues)
+bool Frame::SetTexture(const TextureFixed * texture, const CutValues & cutValues)
 {
 	if (texture == nullptr ||
 		texture == m_frameTexture)
@@ -31,7 +31,7 @@ bool Frame::SetTexture(TextureFixed * texture, const CutValues & cutValues)
 	return true;
 }
 
-bool Frame::SetTextureManagerPointer(TextureManager * textureManagerPointer)
+bool Frame::SetTextureManagerPointer(const TextureManager * textureManagerPointer)
 {
 	if (textureManagerPointer == nullptr ||
 		textureManagerPointer == m_textureManagerPointer)
