@@ -15,7 +15,6 @@ void TextureManager::referenceCounterUpdate()
 		{
 			delete m_textures[i];
 			m_textures[i] = nullptr;
-			m_textures.erase(m_textures.begin(), m_textures.begin() + i);
 		}
 	}
 }
