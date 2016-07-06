@@ -27,7 +27,7 @@ public:
 	BoxCollider GetBoxCollider();
 	Rigidbody GetRigidbody();
 	
-	virtual void Update(sf::Event * eventPtr = nullptr) = 0;
+	void Update();
 
 private:
 	const TextureFixed * m_texture;

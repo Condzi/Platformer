@@ -67,3 +67,9 @@ Rigidbody GameObject::GetRigidbody()
 {
 	return *m_rigidbody;
 }
+
+void GameObject::Update()
+{
+	if (m_rigidbody != nullptr && m_sprite != nullptr)
+		ChangeSpriteAttributes()->setPosition(m_rigidbody->positionX, m_rigidbody->positionY);
+}
