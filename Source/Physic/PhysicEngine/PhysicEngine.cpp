@@ -120,8 +120,6 @@ void PhysicEngine::updateCollisions()
 
 void PhysicEngine::updateRigidbodies(const float & deltaTime)
 {
-	//I'm not sure about this...
-
 	for (Rigidbody * r : m_rigidbodies)
 	{
 		r->positionX += r->positionX * r->velocityX / r->dragX * deltaTime;
