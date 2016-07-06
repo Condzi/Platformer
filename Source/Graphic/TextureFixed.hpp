@@ -26,6 +26,7 @@ private:
 	bool m_wishDelete;
 
 public:
+	/// Better don't change that
 	std::string tag;
 };
 
