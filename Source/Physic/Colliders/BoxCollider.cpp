@@ -77,7 +77,8 @@ bool BoxCollider::IsCollidingWith(const size_t & id, CollisionInfo * collInfo)
 	{
 		if (m_collisionInfo[i] != nullptr && m_collisionInfo[i]->id == id)
 		{
-			collInfo = m_collisionInfo[i];
+			if(collInfo != nullptr)
+				collInfo = m_collisionInfo[i];
 			return true;
 		}
 	}

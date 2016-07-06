@@ -102,10 +102,17 @@ void PhysicEngine::updateCollisions()
 				continue;
 			if (var1 == var2)
 				continue;
+			
 			if (checkSimplyCollision(*var1, *var2))
 			{
 				var1->addCollisionInfo(CollisionInfo(Simple, var2->m_physicEngineID));
 				var2->addCollisionInfo(CollisionInfo(Simple, var1->m_physicEngineID));
+
+				if (!var1->checkSimplyCollision)
+					var1->addCollisionInfo(CollisionInfo(checkCollisionSide(*var1, *var2), var2->m_physicEngineID));
+				
+				if (!var2->checkSimplyCollision)
+					var2->addCollisionInfo(CollisionInfo(checkCollisionSide(*var2, *var1), var1->m_physicEngineID));
 			}
 		}
 	}

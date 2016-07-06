@@ -47,6 +47,9 @@ public:
 	/// It's really important field so can be changed \
 		Only using SetIsTriggered method
 	const bool isTriggered = false;
+	///	True - check simply collision (is collision or not)\
+		False - check complicated (with sides)
+	bool checkSimplyCollision;
 
 };
 
