@@ -37,7 +37,6 @@ public:
 private:
 	std::vector<CollisionInfo*> m_collisionInfo;
 	size_t m_physicEngineID;
-	bool m_wishDelete;
 
 public:
 	int32_t x;
@@ -50,6 +49,7 @@ public:
 	///	True - check simply collision (is collision or not)\
 		False - check complicated (with sides)
 	bool checkSimplyCollision;
+	bool wishDelete;
 
 };
 

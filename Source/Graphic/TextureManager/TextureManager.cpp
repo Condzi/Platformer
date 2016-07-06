@@ -15,6 +15,7 @@ void TextureManager::referenceCounterUpdate()
 			m_textures[i]->updateReference();
 			if (m_textures[i]->m_wishDelete)
 			{
+				std::cout << "[T] Delete texture \"" << m_textures[i]->tag << "\".\n";
 				delete m_textures[i];
 				m_textures[i] = nullptr;
 			}
@@ -127,13 +128,12 @@ const TextureFixed * TextureManager::GetTexture(const std::string & tag)
 
 void TextureManager::GiveBackTexture(const TextureFixed * texture)
 {
-	for (TextureFixed * var : m_textures)
+	for (size_t i = 0; i < m_textures.size(); ++i)
 	{
-		//If they're pointing the same texture...
-		if (var == texture)
+		if (&m_textures[i] == &texture)
 		{
-			var->m_referenceCounter--;
-			var->updateReference();
+			m_textures[i]->m_referenceCounter--;
+			m_textures[i]->updateReference();
 		}
 	}
 }

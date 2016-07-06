@@ -16,7 +16,7 @@ public:
 	bool operator!=(const Rigidbody & a);
 
 private:
-	bool m_wishDelete;
+	bool wishDelete;
 	size_t m_physicEngineID;
 
 public:
@@ -24,11 +24,5 @@ public:
 	int positionY;
 	int velocityX;
 	int velocityY;
-	int gravity;
-	int dragX;
-	int dragY;
-	uint16_t mass;
-	bool applyGravity;
-
 };
 

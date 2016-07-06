@@ -28,6 +28,7 @@ BoxCollider::BoxCollider(int32_t x, int32_t y, int32_t sizeX, int32_t sizeY, boo
 	this->sizeX = sizeX;
 	this->sizeY = sizeY;
 	SetIsTriggered(isTriggered);
+	wishDelete = false;
 }
 
 

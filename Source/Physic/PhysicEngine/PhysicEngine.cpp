@@ -122,12 +122,8 @@ void PhysicEngine::updateRigidbodies(const float & deltaTime)
 {
 	for (Rigidbody * r : m_rigidbodies)
 	{
-		r->positionX += r->positionX * r->velocityX / r->dragX * deltaTime;
-		if (r->applyGravity)
-		{
-			r->velocityY += r->gravity * r->mass;
-		}
-		r->positionY += r->positionY * r->velocityY / r->dragY * deltaTime;
+		r->positionX += r->velocityX * deltaTime;
+		r->positionY += r->velocityY * deltaTime;
 	}
 }
 
@@ -179,30 +175,30 @@ size_t PhysicEngine::GetID()
 	return m_currentIDcounter;
 }
 
-bool PhysicEngine::AddCollider(const BoxCollider & collider)
+bool PhysicEngine::AddCollider(BoxCollider * collider)
 {
 	for (BoxCollider * var : m_colliders)
-		if (*var == collider)
+		if (var == collider)
 			return false;
 
 	if (m_colliders.size() + 1 > m_colliders.max_size())
 		return false;
 
-	m_colliders.push_back(new BoxCollider(collider));
+	m_colliders.push_back(collider);
 	m_colliders[m_colliders.size()-1]->m_physicEngineID = ++m_currentIDcounter;
 	return true;
 }
 
-bool PhysicEngine::AddRigidbody(const Rigidbody & rigidbody)
+bool PhysicEngine::AddRigidbody(Rigidbody * rigidbody)
 {
 	for (Rigidbody * var : m_rigidbodies)
-		if (*var == rigidbody)
+		if (var == rigidbody)
 			return false;
 
 	if (m_rigidbodies.size() + 1 > m_rigidbodies.max_size())
 		return false;
 
-	m_rigidbodies.push_back(new Rigidbody(rigidbody));
+	m_rigidbodies.push_back(rigidbody);
 	m_rigidbodies[m_rigidbodies.size()-1]->m_physicEngineID = ++m_currentIDcounter;
 	return true;
 }
@@ -256,7 +252,7 @@ void PhysicEngine::Update(const float & deltaTime)
 {
 	for (BoxCollider * var : m_colliders)
 	{
-		if (var->m_wishDelete)
+		if (var->wishDelete)
 		{
 			delete var;
 			var = nullptr;
@@ -265,7 +261,7 @@ void PhysicEngine::Update(const float & deltaTime)
 
 	for (Rigidbody * var : m_rigidbodies)
 	{
-		if (var->m_wishDelete)
+		if (var->wishDelete)
 		{
 			delete var;
 			var = nullptr;

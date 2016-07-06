@@ -19,8 +19,14 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	const_cast<TextureManager*>(m_textureManager)->GiveBackTexture(m_texture);
-	delete m_sprite;
+	if (m_texture != nullptr)
+		const_cast<TextureManager*>(m_textureManager)->GiveBackTexture(m_texture);
+	if(m_sprite != nullptr)
+		delete m_sprite;
+	if (m_boxCollider != nullptr)
+		m_boxCollider->wishDelete = true;
+	if (m_rigidbody != nullptr)
+		m_boxCollider->wishDelete = true;
 }
 
 void GameObject::SetTexture(const TextureFixed * texture)
@@ -35,14 +41,30 @@ void GameObject::SetTextureManagerPointer(const TextureManager * textureManager)
 	m_textureManager = textureManager;
 }
 
-void GameObject::SetBoxCollider(BoxCollider * collider)
+void GameObject::SetBoxCollider(const BoxCollider & collider)
 {
-	m_boxCollider = collider;
+	if (m_boxCollider != nullptr)
+	{
+		delete m_boxCollider;
+		m_boxCollider = nullptr;
+		SetBoxCollider(collider);
+		return;
+	}
+
+	m_boxCollider = new BoxCollider(collider);
 }
 
-void GameObject::SetRigidbody(Rigidbody * rigidbody)
+void GameObject::SetRigidbody(const Rigidbody & rigidbody)
 {
-	m_rigidbody = rigidbody;
+	if (m_rigidbody != nullptr)
+	{
+		delete m_rigidbody;
+		m_rigidbody = nullptr;
+		SetRigidbody(rigidbody);
+		return;
+	}
+
+	m_rigidbody = new Rigidbody(rigidbody);
 }
 
 sf::Sprite * GameObject::ChangeSpriteAttributes()
@@ -58,18 +80,26 @@ TextureFixed GameObject::GetTexture()
 	return *m_texture;
 }
 
-BoxCollider GameObject::GetBoxCollider()
+BoxCollider * GameObject::GetBoxCollider()
 {
-	return *m_boxCollider;
+	return m_boxCollider;
 }
 
-Rigidbody GameObject::GetRigidbody()
+Rigidbody * GameObject::GetRigidbody()
 {
-	return *m_rigidbody;
+	return m_rigidbody;
 }
 
 void GameObject::Update()
 {
 	if (m_rigidbody != nullptr && m_sprite != nullptr)
-		ChangeSpriteAttributes()->setPosition(m_rigidbody->positionX, m_rigidbody->positionY);
+	{
+		ChangeSpriteAttributes()->setPosition(
+			m_sprite->getPosition().x +
+			(m_rigidbody->positionX != m_sprite->getPosition().x) ? m_rigidbody->positionX : 0,
+			m_sprite->getPosition().y +
+			(m_rigidbody->positionY != m_sprite->getPosition().y) ? m_rigidbody->positionY : 0);
+		std::cout << m_sprite->getPosition().x << ", " << m_sprite->getPosition().y << " | "<<m_rigidbody->velocityX<<", "<<m_rigidbody->velocityY<<"\n";
+	}
+
 }

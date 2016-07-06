@@ -24,6 +24,7 @@ void TextureFixed::updateReference()
 	if (m_referenceCounter == 0)
 	{
 		m_wishDelete = true;
+		std::cout << "[T] Wishing delete texture \"" << tag << "\".\n";
 	}
 }
 

@@ -2,6 +2,7 @@
 
 #include "..\Physic\PhysicEngine\PhysicEngine.hpp"
 #include "..\Graphic\TextureManager\TextureManager.hpp"
+#include "Player.hpp"
 
 class Game
 {
@@ -26,5 +27,8 @@ private:
 	TextureManager * m_textureManager;
 	sf::RenderWindow m_window;
 	sf::Event m_event;
+
+	//----TEST-ZONE
+	Player test_player;
 };
 

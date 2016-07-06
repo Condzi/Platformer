@@ -3,6 +3,12 @@
 
 Rigidbody::Rigidbody()
 {
+	wishDelete = false;
+
+	positionX = 0;
+	positionY = 0;
+	velocityX = 0;
+	velocityY = 0;
 }
 
 
@@ -20,12 +26,7 @@ bool Rigidbody::operator==(const Rigidbody & a)
 	return (a.positionX == positionX &&
 		a.positionY == positionY &&
 		a.velocityX == velocityX &&
-		a.velocityY == velocityY &&
-		a.gravity == gravity &&
-		a.dragX == dragX &&
-		a.dragY == dragY &&
-		a.mass == mass &&
-		a.applyGravity == applyGravity)
+		a.velocityY == velocityY)
 		? true : false;
 }
 

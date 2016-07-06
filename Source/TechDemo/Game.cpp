@@ -3,6 +3,7 @@
 void Game::draw()
 {
 	m_window.clear(sf::Color::Green);
+	m_window.draw(test_player);
 	m_window.display();
 }
 
@@ -18,6 +19,8 @@ void Game::update(const float & deltaTime)
 		m_textureManager->Update();
 	if (m_physicEngine != nullptr)
 		m_physicEngine->Update(deltaTime);
+	
+	test_player.Update();
 }
 
 void Game::initPhysicEngine()
@@ -29,9 +32,12 @@ void Game::initPhysicEngine()
 		delete m_physicEngine;
 		m_physicEngine = nullptr;
 		initPhysicEngine();
+		return;
 	}
 
 	//Add all rigidbodies etc here...
+	m_physicEngine->AddRigidbody(test_player.GetRigidbody());
+	m_physicEngine->AddCollider(test_player.GetBoxCollider());
 }
 
 void Game::initTextureManager()
@@ -43,9 +49,15 @@ void Game::initTextureManager()
 		delete m_textureManager;
 		m_textureManager = nullptr;
 		initTextureManager();
+		return;
 	}
 
 	//load and add all textures here...
+
+	m_textureManager->AddPath("Data/Textures/ball.png");
+	
+	//...
+	m_textureManager->ReloadTextures();
 }
 
 Game::Game(uint16_t winX, uint16_t winY, uint8_t fpsLimit)
@@ -59,6 +71,10 @@ Game::Game(uint16_t winX, uint16_t winY, uint8_t fpsLimit)
 
 	initPhysicEngine();
 	initTextureManager();
+	//..
+	test_player.SetTexture(m_textureManager->GetTexture("Data/Textures/ball.png"));
+	test_player.SetTextureManagerPointer(m_textureManager);
+	
 }
 
 Game::~Game()
