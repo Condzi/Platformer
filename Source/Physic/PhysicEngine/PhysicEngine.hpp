@@ -40,9 +40,9 @@ public:
 	size_t GetID();
 
 	/// Returns false if couldn't add Collider
-	bool AddCollider(BoxCollider * collider);
+	bool AddCollider(const BoxCollider & collider);
 	/// Returns false if couldn't add Rigidbody
-	bool AddRigidbody(Rigidbody * rigidbody);
+	bool AddRigidbody(const Rigidbody & rigidbody);
 	/// Returns false if couldn't delete Collider
 	bool DelCollider(const size_t & id);
 	/// Returns false if couldn't delete Rigidbody

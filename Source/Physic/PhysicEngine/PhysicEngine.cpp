@@ -174,29 +174,31 @@ size_t PhysicEngine::GetID()
 	return m_currentIDcounter;
 }
 
-bool PhysicEngine::AddCollider(BoxCollider * collider)
+bool PhysicEngine::AddCollider(const BoxCollider & collider)
 {
-	if (collider == nullptr)
-		return false;
+	for (BoxCollider * var : m_colliders)
+		if (*var == collider)
+			return false;
 
 	if (m_colliders.size() + 1 > m_colliders.max_size())
 		return false;
 
-	m_colliders.push_back(collider);
-	collider->m_physicEngineID = ++m_currentIDcounter;
+	m_colliders.push_back(new BoxCollider(collider));
+	m_colliders[m_colliders.size()-1]->m_physicEngineID = ++m_currentIDcounter;
 	return true;
 }
 
-bool PhysicEngine::AddRigidbody(Rigidbody * rigidbody)
+bool PhysicEngine::AddRigidbody(const Rigidbody & rigidbody)
 {
-	if (rigidbody == nullptr)
-		return false;
+	for (Rigidbody * var : m_rigidbodies)
+		if (*var == rigidbody)
+			return false;
 
 	if (m_rigidbodies.size() + 1 > m_rigidbodies.max_size())
 		return false;
 
-	m_rigidbodies.push_back(rigidbody);
-	rigidbody->m_physicEngineID = ++m_currentIDcounter;
+	m_rigidbodies.push_back(new Rigidbody(rigidbody));
+	m_rigidbodies[m_rigidbodies.size()-1]->m_physicEngineID = ++m_currentIDcounter;
 	return true;
 }
 

@@ -31,8 +31,8 @@ public:
 	///	Sets IsTriggered variable
 	void SetIsTriggered(const bool & newStatement);
 
-	bool operator==(BoxCollider & a);
-	bool operator!=(BoxCollider & a);
+	bool operator==(const BoxCollider & a);
+	bool operator!=(const BoxCollider & a);
 
 private:
 	std::vector<CollisionInfo*> m_collisionInfo;

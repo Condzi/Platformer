@@ -95,7 +95,7 @@ void BoxCollider::SetIsTriggered(const bool & newStatement)
 	const_cast<bool&>(this->isTriggered) = newStatement;
 }
 
-bool BoxCollider::operator==(BoxCollider & a)
+bool BoxCollider::operator==(const BoxCollider & a)
 {
 	return (a.x == x &&
 		a.y == y &&
@@ -104,7 +104,7 @@ bool BoxCollider::operator==(BoxCollider & a)
 		? true : false;
 }
 
-bool BoxCollider::operator!=(BoxCollider & a)
+bool BoxCollider::operator!=(const BoxCollider & a)
 {
 	return (operator==(a))?false:true;
 }

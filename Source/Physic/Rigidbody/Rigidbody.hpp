@@ -1,5 +1,5 @@
 #pragma once
-
+#include <cinttypes>
 
 class Rigidbody
 {
@@ -11,6 +11,9 @@ public:
 
 	///	Returns ID used by PhysicEngine
 	size_t GetPhysicEngineID();
+
+	bool operator==(const Rigidbody & a);
+	bool operator!=(const Rigidbody & a);
 
 private:
 	bool m_wishDelete;
