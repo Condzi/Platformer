@@ -27,10 +27,15 @@ void TextureFixed::updateReference()
 	}
 }
 
-bool TextureFixed::operator==(const TextureFixed & t)
+bool TextureFixed::operator==(const TextureFixed & a)
 {
-	return (m_textureManagerID == t.m_textureManagerID &&
-		tag == t.tag)
+	return (m_textureManagerID == a.m_textureManagerID &&
+		tag == a.tag)
 		? true : false;
+}
+
+bool TextureFixed::operator!=(const TextureFixed & a)
+{
+	return (operator==(a)) ? false : true;
 }
 

@@ -119,12 +119,21 @@ const TextureFixed * TextureManager::GetTexture(const std::string & tag)
 				return nullptr;
 			}
 		}
-		else if (m_textures[i]->tag == tag)
+		else if (m_textures[i] != nullptr && m_textures[i]->tag == tag)
 		{
 			m_textures[i]->m_referenceCounter += 1;
 			return m_textures[i];
 		}
 	}
+
+	return nullptr;
+}
+
+const TextureFixed * TextureManager::GetTexture(const size_t & id)
+{
+	for (TextureFixed * var : m_textures)
+		if (var->m_textureManagerID == id)
+			return var;
 
 	return nullptr;
 }

@@ -22,6 +22,7 @@ public:
 	void ReloadTextures();
 
 	const TextureFixed * GetTexture(const std::string & tag);
+	const TextureFixed * GetTexture(const size_t & id);
 	///	Call it in destructor of class that use reference of texture \
 		(I think that only Sprite specialized class should use it)
 	void GiveBackTexture(const TextureFixed * texture);

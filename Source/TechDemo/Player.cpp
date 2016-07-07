@@ -33,7 +33,11 @@ void Player::Update()
 		m_rigidbody->velocityX += 50;
 	GameObject::Update();
 
-	GameObject::SetTexture(const_cast<TextureManager*>(m_textureManager)->GetTexture(m_animator.GetCurrentFrameTextureTag()));
+	if (m_sprite != nullptr)
+	{
+		m_animator.GetCurrentFrame().frameSprite.setPosition(m_sprite->getPosition());
+	}
+
 }
 
 bool Player::SetAnimationSheet(const TextureFixed * texture)

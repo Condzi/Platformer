@@ -19,7 +19,8 @@ public:
 	/// Returns value used by Texture Manager to identyfy this texture
 	size_t GetTextureManagerID();
 
-	bool operator==(const TextureFixed & t);
+	bool operator==(const TextureFixed & a);
+	bool operator!=(const TextureFixed & a);
 
 private:
 	size_t m_textureManagerID;

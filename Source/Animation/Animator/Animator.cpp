@@ -83,7 +83,7 @@ bool Animator::AddFrame(const Frame & frame)
 	if (m_frames.size() > std::numeric_limits<uint8_t>::max())
 		return false;
 
-	m_frames.push_back(frame);
+	m_frames.push_back(*new Frame(frame));
 
 	return true;
 }
@@ -125,8 +125,9 @@ std::string Animator::GetCurrentFrameTextureTag()
 {
 	if (!m_playing)
 		return "err";
-
-	return std::string(m_frames[m_currentFramePlayingID].m_frameTexture->tag); 
+	if (m_frames.size() == 0)
+		return "err";
+	return m_frames[m_currentFramePlayingID].m_frameTexture->tag; 
 }
 
 float Animator::GetAnimationLength()

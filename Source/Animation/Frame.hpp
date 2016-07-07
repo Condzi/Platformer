@@ -21,6 +21,7 @@ public:
 
 	bool SetTexture(const TextureFixed * texture, const CutValues & cutValues);
 	bool SetTextureManagerPointer(const TextureManager * textureManagerPointer);
+	TextureFixed GetTexture();
 
 private:
 	const TextureFixed * m_frameTexture;

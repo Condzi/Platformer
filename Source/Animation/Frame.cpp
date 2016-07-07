@@ -25,7 +25,8 @@ bool Frame::SetTexture(const TextureFixed * texture, const CutValues & cutValues
 		texture == m_frameTexture)
 		return false;
 
-	frameSprite.setTexture(*texture);
+	m_frameTexture = texture;
+	frameSprite.setTexture(*m_frameTexture);
 	frameSprite.setTextureRect(sf::IntRect(cutValues.x, cutValues.y, cutValues.width, cutValues.height));
 	
 	return true;
@@ -40,6 +41,7 @@ bool Frame::SetTextureManagerPointer(const TextureManager * textureManagerPointe
 	m_textureManagerPointer = textureManagerPointer;
 	return true;
 }
+
 
 
 
