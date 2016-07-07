@@ -32,10 +32,10 @@ public:
 
 private:
 	const TextureFixed * m_texture;
-	const TextureManager * m_textureManager;
 	const sf::Sprite * m_sprite;
 
 protected:
+	const TextureManager * m_textureManager;
 	BoxCollider * m_boxCollider;
 	Rigidbody * m_rigidbody;
 	

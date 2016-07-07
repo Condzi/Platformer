@@ -19,7 +19,7 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	if (m_texture != nullptr)
+	if (m_texture != nullptr && m_textureManager != nullptr)
 		const_cast<TextureManager*>(m_textureManager)->GiveBackTexture(m_texture);
 	if(m_sprite != nullptr)
 		delete m_sprite;

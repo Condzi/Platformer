@@ -20,9 +20,9 @@ private:
 	size_t m_physicEngineID;
 
 public:
-	int positionX;
-	int positionY;
-	int velocityX;
-	int velocityY;
+	float positionX;
+	float positionY;
+	float velocityX;
+	float velocityY;
 };
 

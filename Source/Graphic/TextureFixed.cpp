@@ -9,7 +9,6 @@ TextureFixed::TextureFixed(std::string tag)
 	m_wishDelete = false;
 }
 
-
 TextureFixed::~TextureFixed()
 {
 }

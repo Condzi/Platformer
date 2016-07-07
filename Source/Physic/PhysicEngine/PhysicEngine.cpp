@@ -184,8 +184,8 @@ bool PhysicEngine::AddCollider(BoxCollider * collider)
 	if (m_colliders.size() + 1 > m_colliders.max_size())
 		return false;
 
+	collider->m_physicEngineID = ++m_currentIDcounter;
 	m_colliders.push_back(collider);
-	m_colliders[m_colliders.size()-1]->m_physicEngineID = ++m_currentIDcounter;
 	return true;
 }
 
@@ -198,8 +198,8 @@ bool PhysicEngine::AddRigidbody(Rigidbody * rigidbody)
 	if (m_rigidbodies.size() + 1 > m_rigidbodies.max_size())
 		return false;
 
+	rigidbody->m_physicEngineID = ++m_currentIDcounter;
 	m_rigidbodies.push_back(rigidbody);
-	m_rigidbodies[m_rigidbodies.size()-1]->m_physicEngineID = ++m_currentIDcounter;
 	return true;
 }
 

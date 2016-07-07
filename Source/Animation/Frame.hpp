@@ -12,7 +12,7 @@ private:
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
 public:
-	Frame(const TextureFixed * texture = nullptr, const CutValues & cutValues = CutValues(), float duration = 0.2f);
+	Frame(const TextureFixed * texture = nullptr, const CutValues & cutValues = CutValues(), float duration = 0.2f, const TextureManager * textureManagerPtr = nullptr);
 	~Frame();
 	
 	sf::Sprite frameSprite;
@@ -23,7 +23,7 @@ public:
 	bool SetTextureManagerPointer(const TextureManager * textureManagerPointer);
 
 private:
-	TextureFixed * m_frameTexture;
+	const TextureFixed * m_frameTexture;
 	const TextureManager * m_textureManagerPointer;
 
 };

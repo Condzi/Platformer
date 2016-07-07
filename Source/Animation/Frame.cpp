@@ -3,14 +3,14 @@
 
 void Frame::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(frameSprite);
+	target.draw(frameSprite, states);
 }
 
-Frame::Frame(const TextureFixed * texture, const CutValues & cutValues, float duration)
+Frame::Frame(const TextureFixed * texture, const CutValues & cutValues, float duration, const TextureManager * textureManagerPtr)
 {
 	SetTexture(texture, cutValues);
 	this->duration = duration;
-	m_textureManagerPointer = nullptr;
+	m_textureManagerPointer = textureManagerPtr;
 }
 
 Frame::~Frame()
@@ -40,5 +40,6 @@ bool Frame::SetTextureManagerPointer(const TextureManager * textureManagerPointe
 	m_textureManagerPointer = textureManagerPointer;
 	return true;
 }
+
 
 

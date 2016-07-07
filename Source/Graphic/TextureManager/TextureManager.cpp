@@ -94,7 +94,10 @@ void TextureManager::ReloadTextures()
 			m_textures[i]->m_textureManagerID = m_currentIDcounter;
 		}
 		else
+		{
 			delete m_textures[i];
+			std::cout << "[T] Cannot load texture \"" << m_pathsToFiles[i] << "\".\n";
+		}
 	}
 }
 

@@ -11,6 +11,7 @@ Animator::Animator()
 {
 	m_clock = nullptr;
 	m_repeat = false;
+	m_currentFramePlayingID = 0;
 }
 
 
@@ -118,6 +119,14 @@ Frame Animator::GetFrame(const uint8_t & id)
 Frame Animator::GetCurrentFrame()
 {
 	return m_frames[m_currentFramePlayingID];
+}
+
+std::string Animator::GetCurrentFrameTextureTag()
+{
+	if (!m_playing)
+		return "err";
+
+	return std::string(m_frames[m_currentFramePlayingID].m_frameTexture->tag); 
 }
 
 float Animator::GetAnimationLength()

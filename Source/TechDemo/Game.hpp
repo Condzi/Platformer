@@ -17,7 +17,7 @@ private:
 	void initTextureManager();
 
 public:
-	Game(uint16_t winX = 800, uint16_t winY = 600, uint8_t fpsLimit = 24);
+	Game(uint16_t winX = 800, uint16_t winY = 600, uint8_t fpsLimit = 64);
 	~Game();
 
 	void Run();

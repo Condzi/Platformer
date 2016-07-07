@@ -55,6 +55,7 @@ void Game::initTextureManager()
 	//load and add all textures here...
 
 	m_textureManager->AddPath("Data/Textures/ball.png");
+	m_textureManager->AddPath("Data/Textures/animTest.png");
 	
 	//...
 	m_textureManager->ReloadTextures();
@@ -72,7 +73,7 @@ Game::Game(uint16_t winX, uint16_t winY, uint8_t fpsLimit)
 	initPhysicEngine();
 	initTextureManager();
 	//..
-	test_player.SetTexture(m_textureManager->GetTexture("Data/Textures/ball.png"));
+	test_player.SetAnimationSheet(m_textureManager->GetTexture("Data/Textures/animTest.png"));
 	test_player.SetTextureManagerPointer(m_textureManager);
 	
 }
@@ -95,6 +96,8 @@ void Game::Run()
 		}
 
 		update(deltaTime.getElapsedTime().asSeconds());
+		deltaTime.restart();
+
 		draw();
 	}
 }
