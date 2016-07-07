@@ -1,3 +1,4 @@
+Project canceled due to "high large unreliability and impracticality". 
 # "Platformer"
 Simple 2d made make in C++ and SFML. Top-Down mini RPG.
 # Project Status (what happens now)
